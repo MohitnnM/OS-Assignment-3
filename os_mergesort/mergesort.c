@@ -56,9 +56,47 @@ void my_mergesort(int left, int right){
 	merge(left, mid, mid + 1, right);
 }
 
-/* this function will be called by the testing program. */
 void * parallel_mergesort(void *arg){
+	struct argument *arg_struct = (struct argument *) arg;
+
+	// hit base case: perform single threaded mergesort
+	if (arg_struct->level >= cutoff) {
+		my_mergesort(arg_struct->left, arg_struct->right);
 		return NULL;
+	}
+
+	// find the mid index
+	int mid = (arg_struct->left + arg_struct->right) / 2;
+
+	// prepare arguments for left and right subarrays
+	struct argument *left_arg = buildArgs(arg_struct->left, mid, arg_struct->level + 1);
+	struct argument *right_arg = buildArgs(mid + 1, arg_struct->right, arg_struct->level + 1);
+
+	// generate two threads to handle sub arrays
+	pthread_t thread1, thread2;
+
+	// safely create threads and pass argument to begin recursive mergesort calls
+	if (pthread_create(&thread1, NULL, parallel_mergesort, left_arg) != 0) {
+		perror("Failed to create thread 1 at level: " + arg_struct->level);
+		exit(1);
+	}
+	if (pthread_create(&thread2, NULL, parallel_mergesort, right_arg) != 0) {
+		perror("Failed to create thread 2 at level: " + arg_struct->level);
+		exit(1);
+	}
+
+	// wait for both threads to finish
+	pthread_join(thread1, NULL);
+	pthread_join(thread2, NULL);
+
+	// merge the sorted subarrays
+	merge(arg_struct->left, mid, mid + 1, arg_struct->right);
+
+	// free the allocated argument structs
+	free(left_arg);
+	free(right_arg);
+
+	return NULL;
 }
 
 /* we build the argument for the parallel_mergesort function. */
