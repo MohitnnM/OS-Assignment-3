@@ -5,10 +5,7 @@
 
 ## Overview
 
-Concisely explain what the program does. If this exceeds a couple of
-sentences, you're going too far. Generally, you should be pulling this
-right from the project specification. We don't want you to just cut and
-paste, but paraphrase what is stated in the project specification.
+This program implements a parallel merge sort algorithm that utilises multi-threading to speed up sorting time. It achieves this by recursively diving the array into subarrays, sorting them (in parallel up to a cutoff level) and then merging the results back together to produce a fully ordered array.
 
 ## Manifest
 
@@ -35,21 +32,16 @@ to be detailed here.
 
 ## Known Bugs
 
-List known bugs that you weren't able to fix (or ran out of time to fix).
+No known bugs exist in this program
 
 ## Reflection and Self Assessment
 
-Discuss the issues you encountered during development and testing. What
-problems did you have? What did you have to research and learn on your own?
-What kinds of errors did you get? How did you fix them?
+During development, the main challenge was understanding how the provided template and functions interacted. This required carefully reading the specification, analysing the starter code, and reviewing merge sort concepts through the background section and reference materials. Once the basic merge sort logic was understood, implementing the sequential version was straightforward.
 
-What parts of the project did you find challenging? Is there anything that
-finally "clicked" for you in the process of working on this project? How well
-did the development and testing process go for you?
+Adding parallelism was initially unfamiliar but became clear after revisiting the textbook sections on concurrency and the use of pthread_create and pthread_join. With the provided data structure for passing thread arguments, implementing multithreading mainly involved managing thread creation, synchronisation, and merging results correctly.
+
+Most issues arose from small implementation mistakes such as forgetting to free dynamically allocated argument structures and mistakenly using a while loop instead of an if statement for the cutoff condition. After identifying and correcting these errors through testing and code review, the program ran efficiently. Overall, the process went smoothly, and understanding how recursive functions interact with threads was a key concept that “clicked” during this project. Testing also exceeded expectations, with the multi-threaded implementation producing a 4 times speedup, further validating success.
 
 ## Sources Used
 
-If you used any sources outside of the textbook, you should list them here. 
-If you looked something up on stackoverflow.com or you use help from AI, and 
-fail to cite it in this section, it will be considered plagiarism and dealt 
-with accordingly. So be safe CITE!
+The primary resource used in this assignment was the youtube video 'Algorithms: Merge Sort' (https://youtu.be/KF2j-9iSf4Q) which was featured in the assignment description. This explained the inner workings of the standard merge sort alogrithm and how to implement it in code. Overall, the general structure was followed when implementing our custom approach. Secondly, the textbook's (Operating Systems: Three Easy Pieces) concurrency chapter was read to understand pthreads and how to use the library.
