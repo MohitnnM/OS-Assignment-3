@@ -5,24 +5,51 @@
 
 ## Overview
 
-This program implements a parallel merge sort algorithm that utilises multi-threading to speed up sorting time. It achieves this by recursively diving the array into subarrays, sorting them (in parallel up to a cutoff level) and then merging the results back together to produce a fully ordered array.
+This program implements a parallel merge sort algorithm that utilises multi-threading to speed up sorting time. It achieves this by recursively dividing the array into subarrays, sorting them (in parallel up to a cutoff level) and then merging the results back together to produce a fully ordered array.
 
 ## Manifest
 
-A listing of source files and other non-generated files, and a brief
-(one-line) explanation of the purpose of each file.
+**Mergesort.c -** Contains the implementations of the sequential and parallel versions of the merge sort algorithm, my_mergesort and parallel_mergesort, utilising pthreads. Does the merging, recursions and manages threads. 
+
+**Mergesort.h -** Is the header file for mergesort.c, containing the global variables, structures and function prototypes all used in mergersort.c.
+
+**Makefile -** This file defines how to compile and link this program, also cleaning any generated files when run.
+
+**test-mergesort.c -** This file is used to test the program. When run, it sets up the array, the cutoff level and calls the merge sort functions. 
 
 ## Building the project
+It is a straightforward process to build this project simply:
 
-This section should tell the user how to build your code.  If you are
-delivering a library, where does it need to be installed, or how do you use
-it? Is this an executable, if so, how can a user get up to speed as fast as
-possible?
+1. Run **make** in the terminal. (Compile the program, linking it into an executable file called **test-mergesort**)
+
+2. If you want to regenerate and test it again, run:
+   
+  a. **make clean** in the terminal (cleans all generated files)
+  
+  b. **make** again to compile the .c files
 
 ## Features and usage
+**Features:**
 
-Summarise the main features of your program. It is also appropriate to
-instruct the user how to use your program.
+1. Contains the implementations of both the sequential and parallel versions of mergesort
+   
+2. Subarrays are sorted in parallel through the use of pthreads to multiple threads
+   
+3. Implements a cutoff level, thus allowing you to control the number of levels that utilise threading
+
+4. Subarrays are automatically merged after threads are complete
+
+ **Usage:**
+
+To run this program, after building simply execute:
+
+./test-mergesort <array_size> <cutoff_level>
+
+**Arguments:**
+
+<array_size> = the number of integers to be sorted
+<cutoff_level> = the depth of recursion where you want parallelism to stop
+ 
 
 ## Testing
 
