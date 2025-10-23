@@ -20,42 +20,60 @@ This program implements a parallel merge sort algorithm that utilises multi-thre
 ## Building the project
 It is a straightforward process to build this project simply:
 
-1. Run **make** in the terminal. (Compile the program, linking it into an executable file called **test-mergesort**)
+1. Run:
+```
+make
+```
+in the terminal. Compiles the program, linking it into an executable file called **test-mergesort**
 
 2. If you want to regenerate and test it again, run:
-   
-  a. **make clean** in the terminal (cleans all generated files)
-  
-  b. **make** again to compile the .c files
+   -  ```make clean``` in the terminal (cleans all generated files).
+   - ```make``` again to compile the .c files.
 
 ## Features and usage
 **Features:**
 
-1. Contains the implementations of both the sequential and parallel versions of mergesort
+1. Contains the implementations of both the sequential and parallel versions of mergesort.
    
-2. Subarrays are sorted in parallel through the use of pthreads to multiple threads
+2. Subarrays are sorted in parallel through the use of pthreads to multiple threads.
    
-3. Implements a cutoff level, thus allowing you to control the number of levels that utilise threading
+3. Implements a cutoff level, thus allowing you to control the number of levels that utilise threading.
 
-4. Subarrays are automatically merged after threads are complete
+4. Subarrays are automatically merged after threads are complete.
 
  **Usage:**
 
 To run this program, after building simply execute:
-
+```
 ./test-mergesort <array_size> <cutoff_level>
-
+```
 **Arguments:**
 
-<array_size> = the number of integers to be sorted
-<cutoff_level> = the depth of recursion where you want parallelism to stop
+<array_size> = the number of integers to be sorted.
+
+<cutoff_level> = the depth of recursion where you want parallelism to stop.
  
 
 ## Testing
 
-This section should detail how you tested your code. Simply stating "I ran
-it a few times and it seems to work" is not sufficient. Your testing needs
-to be detailed here.
+The following tests were run to ensure the correctness and performance of the program:
+
+1. Small arrays ~10-100 elements:
+   - Used to test the correctness of the program.
+   - Printed the arrays before and after sorting for verification.
+   - Ensured output matched the expected results.
+2. Edge cases:
+   - Testing the correctness of the code.
+   - Tested using arrays of size 1 and 0, which the program handled well.
+   - Tested using arrays containing duplicates, negative integers, or values already sorted.
+4. Sequential vs Parallel versions:
+   - Testing the correctness of the code.
+   - Compared the results of both versions of merge sort using identical inputs, ensuring that the resultant output was the same.
+
+**Performance**
+
+1. Measured the run time of the program with larger inputs (~100,000+ integers).
+2. Consistent speedups were observed in parallel execution, mainly when the cutoff levels were between 2-4.
 
 ## Known Bugs
 
